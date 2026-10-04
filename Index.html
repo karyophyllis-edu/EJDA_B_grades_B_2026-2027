@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ο βαθμός μου · Βιολογία ΓΠ Β΄ Λυκείου</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f172a; --panel:#1e293b; --panel2:#273449; --line:#334155; --ink:#f1f5f9; --ink2:#cbd5e1; --muted:#94a3b8;
+  --cyan:#22d3ee; --blue:#60a5fa; --amber:#fbbf24; --rose:#fb7185; --green:#34d399; --violet:#a78bfa;
+  --c-test:#0891b2; --c-asg:#2563eb; --c-hr:#d97706;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Sora,system-ui,sans-serif;font-size:15px;line-height:1.45}
+input,button,select{font-family:inherit;font-size:15px}
+.wrap{max-width:880px;margin:0 auto;padding:18px 16px 60px}
+header h1{font-size:20px;margin:6px 0 2px} header h1 span{color:var(--cyan)}
+header p{margin:0;color:var(--muted);font-size:13px}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3px;margin:16px 0}
+.seg button{flex:1;background:none;border:none;color:var(--muted);padding:9px 6px;border-radius:8px;cursor:pointer;font-weight:600}
+.seg button.on{background:var(--panel2);color:var(--ink)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.card h2{font-size:15px;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+.card .sub{color:var(--muted);font-size:12px;margin-bottom:12px}
+.tag{font-size:11px;padding:2px 8px;border-radius:999px;color:#fff;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.cell label{display:block;font-size:11px;color:var(--muted);margin-bottom:4px;text-align:center}
+.cell input{width:100%;text-align:center;padding:10px 4px;background:#0f172a;border:1px solid var(--line);border-radius:9px;color:var(--ink);font-weight:600}
+.cell input:focus{outline:2px solid var(--cyan);border-color:transparent}
+.cell input.bad{border-color:var(--rose);background:#3f1d2b}
+.cell input.low{color:var(--rose)} .cell input.hi{color:var(--green)}
+.avgline{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:10px;border-top:1px dashed var(--line);font-size:13px;color:var(--ink2)}
+.avgline b{font-size:17px;color:var(--ink)}
+.cmp{font-size:12px;color:var(--muted)}
+.result{background:linear-gradient(135deg,#0e3a4a,#1e293b 60%);border-color:#155e75}
+.big{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.big .num{font-size:54px;font-weight:700;line-height:1}
+.big .exact{color:var(--ink2);font-size:13px}
+.badge{display:inline-block;font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--ink2);margin-top:8px}
+.badge.a{border-color:var(--amber);color:var(--amber)} .badge.g{border-color:var(--green);color:var(--green)} .badge.r{border-color:var(--rose);color:var(--rose)}
+.contrib{margin-top:16px}
+.contrib .bar{display:flex;height:16px;border-radius:6px;overflow:hidden;background:#0f172a;gap:2px}
+.contrib .bar div{height:100%}
+.contrib .bar div:first-child{border-radius:6px 0 0 6px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-top:8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.goal{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.goal select{background:#0f172a;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.goal-out{margin-top:10px;font-size:14px;color:var(--ink2)}
+.goal-out b{color:var(--ink);font-size:18px}
+.how{font-size:13px;color:var(--ink2)} .how summary{cursor:pointer;color:var(--cyan);font-weight:600}
+.how li{margin:4px 0}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 14px;cursor:pointer}
+.btn:hover{border-color:var(--cyan)}
+.yr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:24px}
+.hide{display:none}
+@media (max-width:560px){
+  .grid{grid-template-columns:repeat(3,1fr)} .big .num{font-size:46px} .yr-grid{grid-template-columns:1fr}
+}
+@media print{
+  :root{--bg:#fff;--panel:#fff;--panel2:#f1f5f9;--line:#cbd5e1;--ink:#0f172a;--ink2:#334155;--muted:#64748b}
+  .seg,.row,.how{display:none} .result{background:#fff} .cell input{background:#fff}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Ο βαθμός μου · <span>Βιολογία ΓΠ</span> Β΄ Λυκείου</h1>
+    <p>Γράψε τους βαθμούς σου (0–20) και δες πώς διαμορφώνεται ο βαθμός του τετραμήνου. Οι βαθμοί μένουν μόνο σε αυτή τη συσκευή.</p>
+  </header>
+
+  <div class="seg" id="tabs">
+    <button data-t="A" class="on">Α΄ τετράμηνο</button>
+    <button data-t="B">Β΄ τετράμηνο</button>
+    <button data-t="Y">Ετήσιος</button>
+  </div>
+
+  <section id="termView">
+    <div class="card">
+      <h2><span class="tag" style="background:var(--c-test)" id="wT"></span>Τεστ</h2>
+      <div class="sub">Γράψε μόνο όσα τεστ έχουν γίνει. Κενό = δεν έχει γίνει ακόμη.</div>
+      <div class="grid" id="gT"></div>
+      <div class="avgline"><span>ΜΟ τεστ <span class="cmp" id="cT"></span></span><b id="aT">—</b></div>
+    </div>
+    <div class="card">
+      <h2><span class="tag" style="background:var(--c-asg)" id="wA"></span>Αναθέσεις Teams</h2>
+      <div class="sub">Ο βαθμός κάθε ανάθεσης στην κλίμακα 0–20. Αν δεν παρέδωσες μια ανάθεση, ρώτα τον καθηγητή σου πώς μετράει.</div>
+      <div class="grid" id="gA"></div>
+      <div class="avgline"><span>ΜΟ αναθέσεων <span class="cmp" id="cA"></span></span><b id="aA">—</b></div>
+    </div>
+    <div class="card">
+      <h2><span class="tag" style="background:var(--c-hr)" id="wH"></span>Ωριαίο διαγώνισμα</h2>
+      <div class="grid" id="gH"></div>
+      <div class="avgline"><span>Ωριαίο <span class="cmp" id="cH"></span></span><b id="aH">—</b></div>
+    </div>
+
+    <div class="card result">
+      <div class="sub" style="margin-bottom:6px">Βαθμός τετραμήνου (εκτίμηση)</div>
+      <div class="big"><div class="num" id="fin">—</div><div class="exact" id="finExact"></div></div>
+      <div id="status"></div>
+      <div class="contrib" id="contribBox">
+        <div class="bar" id="bar"></div>
+        <div class="legend" id="barLegend"></div>
+      </div>
+    </div>
+
+    <div class="card" id="goalCard">
+      <h2>🎯 Στόχος</h2>
+      <div class="sub">Τι χρειάζεσαι στο ωριαίο για να πετύχεις τον βαθμό που θέλεις;</div>
+      <div class="goal"><span>Θέλω τουλάχιστον</span><select id="goal"></select></div>
+      <div class="goal-out" id="goalOut"></div>
+    </div>
+  </section>
+
+  <section id="yearView" class="hide">
+    <div class="card">
+      <h2>Ετήσιος βαθμός</h2>
+      <div class="sub">Τα τετράμηνα συμπληρώνονται αυτόματα από τις άλλες καρτέλες. Αν υπάρχουν γραπτές εξετάσεις Ιουνίου, γράψε τον βαθμό σου.</div>
+      <div class="yr-grid">
+        <div class="cell"><label>Α΄ τετράμηνο</label><input id="yA" readonly></div>
+        <div class="cell"><label>Β΄ τετράμηνο</label><input id="yB" readonly></div>
+        <div class="cell"><label>Γραπτές Ιουνίου</label><input id="yW" inputmode="decimal" placeholder="—"></div>
+      </div>
+    </div>
+    <div class="card result">
+      <div class="sub" style="margin-bottom:6px">Ετήσιος βαθμός (εκτίμηση)</div>
+      <div class="big"><div class="num" id="yFin">—</div><div class="exact" id="yExact"></div></div>
+      <div id="yStatus"></div>
+    </div>
+  </section>
+
+  <div class="card">
+    <details class="how">
+      <summary>Πώς υπολογίζεται;</summary>
+      <ul id="howList"></ul>
+    </details>
+  </div>
+
+  <div class="row">
+    <button class="btn" onclick="window.print()">Εκτύπωση</button>
+    <button class="btn" id="clear">Καθαρισμός βαθμών</button>
+  </div>
+  <footer>Η σελίδα δίνει εκτίμηση. Ο επίσημος βαθμός είναι αυτός που καταχωρεί ο καθηγητής.</footer>
+</div>
+
+<script>
+/* ==================== ΡΥΘΜΙΣΕΙΣ ΚΑΘΗΓΗΤΗ ====================
+   Ίδιες με την καρτέλα «Ρυθμίσεις» του βαθμολογίου.
+   CLASS_AVG: προαιρετικά, ΜΟ τμήματος ανά αξιολόγηση (null = δεν εμφανίζεται).
+   Παράδειγμα: A: { tests:[13.4,12.9,null,null,null], assign:[14.1,null,null,null,null], hourly:null }
+*/
+const CONFIG = {
+  W_TEST: 0.30, W_ASSIGN: 0.30, W_HOURLY: 0.40,
+  PASS: 10, EXCEL: 18, DEC: 0, W_WRITTEN: 0.50,
+  TITLES: {
+    A: { tests:['Τεστ 1','Τεστ 2','Τεστ 3','Τεστ 4','Τεστ 5'], assign:['Ανάθ. 1','Ανάθ. 2','Ανάθ. 3','Ανάθ. 4','Ανάθ. 5'] },
+    B: { tests:['Τεστ 1','Τεστ 2','Τεστ 3','Τεστ 4','Τεστ 5'], assign:['Ανάθ. 1','Ανάθ. 2','Ανάθ. 3','Ανάθ. 4','Ανάθ. 5'] }
+  },
+  CLASS_AVG: { A: null, B: null }
+};
+/* ============================================================ */
+
+const KEY = 'bio-gp-b-grades-2026-27';
+const $ = s => document.querySelector(s);
+const isNum = x => typeof x === 'number' && isFinite(x);
+const fmt = (x,d=1) => isNum(x) ? x.toFixed(d).replace('.', ',') : '—';
+const avg = a => { const v=a.filter(isNum); return v.length ? v.reduce((s,x)=>s+x,0)/v.length : null; };
+const round = (x,d) => { const f=Math.pow(10,d); return Math.round(x*f+1e-9)/f; };
+const pctW = w => Math.round(w*100)+'%';
+
+let state = { A:{tests:Array(5).fill(null),assign:Array(5).fill(null),hourly:null},
+              B:{tests:Array(5).fill(null),assign:Array(5).fill(null),hourly:null}, written:null };
+let term = 'A';
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.A && s.B) state = s; } catch(e) {}
+try { const t = localStorage.getItem(KEY+'-tab'); if (t) term = t; } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); localStorage.setItem(KEY+'-tab', term); } catch(e) {} }
+
+function parse(v){
+  v = String(v).trim().replace(',', '.');
+  if (v === '') return {ok:true, v:null};
+  if (!/^\d{1,2}(\.\d{1,2})?$/.test(v)) return {ok:false};
+  const n = Number(v); return (n>=0 && n<=20) ? {ok:true, v:n} : {ok:false};
+}
+function cls(v){ return !isNum(v) ? '' : v < CONFIG.PASS ? 'low' : v >= CONFIG.EXCEL ? 'hi' : ''; }
+
+function calc(t){
+  const s = state[t];
+  const T = avg(s.tests), A = avg(s.assign), H = isNum(s.hourly) ? s.hourly : null;
+  const parts = [[T,CONFIG.W_TEST],[A,CONFIG.W_ASSIGN],[H,CONFIG.W_HOURLY]];
+  let num=0, den=0; parts.forEach(([v,w]) => { if (isNum(v)) { num+=v*w; den+=w; } });
+  const fin = den ? num/den : null;
+  const n = parts.filter(([v]) => isNum(v)).length;
+  return { T, A, H, fin, finR: isNum(fin) ? round(fin, CONFIG.DEC) : null, n, den };
+}
+
+function buildInputs(){
+  const s = state[term], titles = CONFIG.TITLES[term];
+  const mk = (id, arr, labels, key) => {
+    $(id).innerHTML = arr.map((v,i) => `<div class="cell"><label>${labels[i]}</label>
+      <input inputmode="decimal" data-k="${key}" data-i="${i}" class="${cls(v)}" value="${isNum(v)?String(v).replace('.',','):''}" placeholder="—"></div>`).join('');
+  };
+  mk('#gT', s.tests, titles.tests, 'tests');
+  mk('#gA', s.assign, titles.assign, 'assign');
+  $('#gH').innerHTML = `<div class="cell" style="grid-column:span 1"><label>Ωριαίο</label>
+    <input inputmode="decimal" data-k="hourly" class="${cls(s.hourly)}" value="${isNum(s.hourly)?String(s.hourly).replace('.',','):''}" placeholder="—"></div>`;
+}
+
+function render(){
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === term));
+  $('#termView').classList.toggle('hide', term === 'Y');
+  $('#yearView').classList.toggle('hide', term !== 'Y');
+  $('#wT').textContent = pctW(CONFIG.W_TEST); $('#wA').textContent = pctW(CONFIG.W_ASSIGN); $('#wH').textContent = pctW(CONFIG.W_HOURLY);
+  renderHow();
+  if (term === 'Y') return renderYear();
+  const r = calc(term), ca = CONFIG.CLASS_AVG[term];
+  $('#aT').textContent = fmt(r.T,2); $('#aA').textContent = fmt(r.A,2); $('#aH').textContent = fmt(r.H,1);
+  const cmpTxt = (mine, list) => { if (!ca || !list) return ''; const c = Array.isArray(list) ? avg(list) : list; return isNum(c) ? `· ΜΟ τμήματος ${fmt(c,2)}` : ''; };
+  $('#cT').textContent = cmpTxt(r.T, ca && ca.tests); $('#cA').textContent = cmpTxt(r.A, ca && ca.assign); $('#cH').textContent = cmpTxt(r.H, ca && ca.hourly);
+
+  $('#fin').textContent = fmt(r.finR, CONFIG.DEC);
+  $('#fin').style.color = !isNum(r.fin) ? 'var(--muted)' : r.fin < CONFIG.PASS ? 'var(--rose)' : r.fin >= CONFIG.EXCEL ? 'var(--green)' : 'var(--ink)';
+  $('#finExact').textContent = isNum(r.fin) ? `ακριβής τιμή ${fmt(r.fin,2)}` : 'Γράψε τουλάχιστον έναν βαθμό';
+  const missing = [!isNum(r.T)&&'τεστ', !isNum(r.A)&&'αναθέσεις', !isNum(r.H)&&'ωριαίο'].filter(Boolean);
+  $('#status').innerHTML = r.n === 3 ? `<span class="badge g">Πλήρης υπολογισμός</span>`
+    : r.n === 0 ? '' : `<span class="badge a">Μερικός: λείπει ${missing.join(', ')} — ο βαθμός βγαίνει από όσα υπάρχουν</span>`;
+
+  // συνεισφορά κάθε συνιστώσας στον τελικό
+  const segs = [[r.T,CONFIG.W_TEST,'var(--c-test)','Τεστ'],[r.A,CONFIG.W_ASSIGN,'var(--c-asg)','Αναθέσεις'],[r.H,CONFIG.W_HOURLY,'var(--c-hr)','Ωριαίο']];
+  if (r.n) {
+    $('#contribBox').classList.remove('hide');
+    $('#bar').innerHTML = segs.filter(([v])=>isNum(v)).map(([v,w,c]) => `<div style="width:${(v*w/r.den)/20*100}%;background:${c}" title=""></div>`).join('');
+    $('#barLegend').innerHTML = segs.filter(([v])=>isNum(v)).map(([v,w,c,l]) => `<span><i class="dot" style="background:${c}"></i>${l}: +${fmt(v*w/r.den,2)} μονάδες</span>`).join('')
+      + `<span style="color:var(--muted)">(από τις 20)</span>`;
+  } else $('#contribBox').classList.add('hide');
+  renderGoal(r);
+}
+
+function renderGoal(r){
+  const sel = $('#goal');
+  if (!sel.options.length) {
+    sel.innerHTML = Array.from({length:11},(_,i)=>i+10).map(g=>`<option value="${g}">${g}</option>`).join('');
+    try { sel.value = localStorage.getItem(KEY+'-goal') || '15'; } catch(e) { sel.value = '15'; }
+  }
+  const g = +sel.value, out = $('#goalOut');
+  if (isNum(r.H)) { out.innerHTML = 'Το ωριαίο έχει ήδη γραφτεί. Ο στόχος υπολογίζεται πριν από το ωριαίο.'; return; }
+  if (!isNum(r.T) || !isNum(r.A)) { out.innerHTML = 'Γράψε πρώτα τουλάχιστον ένα τεστ και μία ανάθεση.'; return; }
+  const lower = CONFIG.DEC === 0 ? g - 0.5 : g;                       // με στρογγυλοποίηση στον ακέραιο
+  const need = (lower - CONFIG.W_TEST*r.T - CONFIG.W_ASSIGN*r.A) / CONFIG.W_HOURLY;
+  const needR = Math.max(0, Math.ceil(need*2)/2);                     // σε μισές μονάδες
+  if (need > 20) out.innerHTML = `Με τους σημερινούς μέσους όρους, το <b>${g}</b> δεν πιάνεται μόνο με το ωριαίο. Ανέβασε τα τεστ ή τις αναθέσεις που απομένουν.`;
+  else if (need <= 0) out.innerHTML = `Το <b>${g}</b> το έχεις ήδη εξασφαλίσει με τα τεστ και τις αναθέσεις — μπράβο!`;
+  else out.innerHTML = `Χρειάζεσαι τουλάχιστον <b>${fmt(needR,1)}</b> στο ωριαίο, αν οι μέσοι όροι τεστ και αναθέσεων μείνουν ως έχουν.`;
+}
+
+function renderYear(){
+  const a = calc('A').finR, b = calc('B').finR;
+  $('#yA').value = fmt(a, CONFIG.DEC); $('#yB').value = fmt(b, CONFIG.DEC);
+  $('#yW').value = isNum(state.written) ? String(state.written).replace('.',',') : '';
+  const m = avg([a,b]);
+  let y = null;
+  if (isNum(m)) y = isNum(state.written) ? (1-CONFIG.W_WRITTEN)*m + CONFIG.W_WRITTEN*state.written : m;
+  $('#yFin').textContent = fmt(isNum(y) ? round(y, CONFIG.DEC) : null, CONFIG.DEC);
+  $('#yFin').style.color = !isNum(y) ? 'var(--muted)' : y < CONFIG.PASS ? 'var(--rose)' : 'var(--ink)';
+  $('#yExact').textContent = isNum(y) ? `ακριβής τιμή ${fmt(y,2)}` : 'Συμπλήρωσε πρώτα τα τετράμηνα';
+  const parts = [];
+  if (!isNum(a) || !isNum(b)) parts.push(`<span class="badge a">Λείπει τετράμηνο — εκτίμηση από όσα υπάρχουν</span>`);
+  if (!isNum(state.written)) parts.push(`<span class="badge">Χωρίς γραπτές Ιουνίου</span>`);
+  $('#yStatus').innerHTML = parts.join(' ');
+}
+
+function renderHow(){
+  const c = CONFIG;
+  $('#howList').innerHTML = `
+    <li><b>ΜΟ τεστ</b> και <b>ΜΟ αναθέσεων</b>: ο μέσος όρος όσων βαθμών έχεις.</li>
+    <li><b>Τετράμηνο</b> = ${pctW(c.W_TEST)} × ΜΟ τεστ + ${pctW(c.W_ASSIGN)} × ΜΟ αναθέσεων + ${pctW(c.W_HOURLY)} × ωριαίο.</li>
+    <li>Αν λείπει κάποιο κομμάτι (π.χ. δεν έχει γίνει ακόμη το ωριαίο), ο βαθμός βγαίνει αναλογικά από όσα υπάρχουν.</li>
+    <li>Ο βαθμός τετραμήνου στρογγυλοποιείται ${c.DEC===0?'στον πλησιέστερο ακέραιο':'σε '+c.DEC+' δεκαδικό'}.</li>
+    <li><b>Ετήσιος</b> = μέσος όρος των δύο τετραμήνων${c.W_WRITTEN?`· αν υπάρχουν γραπτές Ιουνίου: ${pctW(1-c.W_WRITTEN)} τετράμηνα + ${pctW(c.W_WRITTEN)} γραπτά`:''}.</li>`;
+}
+
+document.addEventListener('input', e => {
+  const el = e.target; if (!el.dataset.k && el.id !== 'yW') return;
+  const r = parse(el.value);
+  el.classList.toggle('bad', !r.ok);
+  if (!r.ok) return;
+  if (el.id === 'yW') state.written = r.v;
+  else if (el.dataset.k === 'hourly') state[term].hourly = r.v;
+  else state[term][el.dataset.k][+el.dataset.i] = r.v;
+  el.classList.remove('low','hi'); const c = cls(r.v); if (c) el.classList.add(c);
+  save(); render();
+});
+$('#tabs').addEventListener('click', e => { if (!e.target.dataset.t) return; term = e.target.dataset.t; save(); if (term!=='Y') buildInputs(); render(); });
+$('#goal').addEventListener('change', () => { try { localStorage.setItem(KEY+'-goal', $('#goal').value); } catch(e) {} render(); });
+$('#clear').addEventListener('click', () => {
+  const lbl = term === 'Y' ? 'τους γραπτούς Ιουνίου' : (term === 'A' ? 'το Α΄ τετράμηνο' : 'το Β΄ τετράμηνο');
+  if (!confirm('Να σβηστούν οι βαθμοί για ' + lbl + ';')) return;
+  if (term === 'Y') state.written = null; else state[term] = {tests:Array(5).fill(null),assign:Array(5).fill(null),hourly:null};
+  save(); if (term!=='Y') buildInputs(); render();
+});
+if (term !== 'Y') buildInputs();
+render();
+</script>
+</body>
+</html>
